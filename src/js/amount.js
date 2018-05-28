@@ -5,7 +5,7 @@ class Amount {
         const taxRate = 0.05;
         this.salesAmount = Math.round(
             taxItems.reduce(
-                (amount, item) => (amount + item.amount) / (1 + taxRate),
+                (amount, item) => amount + item.amount / (1 + taxRate),
                 0
             )
         );

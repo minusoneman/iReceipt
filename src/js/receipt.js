@@ -8,7 +8,9 @@ import EncodeType from './encode-type';
 import aes from './aes';
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
-import { format } from 'date-fns/esm';
+// import { format } from 'date-fns/esm';
+import iconv from 'iconv-lite'
+import moment from 'moment'
 import template from '../template/ireceipt.html';
 
 const defaultInvoiceAttr = {
@@ -130,7 +132,7 @@ class Receipt {
     }
 
     // Reference: https://www.einvoice.nat.gov.tw/home/DownLoad?fileName=1479449792874_0.6(20161115).pdf
-    generateRightQRCodeString() {
+    generateRightQRCodeString(encodeType = 0) {
         let qrcode = this.items.map((item, index) => {
             let combineString = [];
             combineString.push(index === 0 ? '**' : ':');
@@ -224,7 +226,7 @@ class Receipt {
                             ${this.info.number}
                         </div>
                         <div class="receipt-issue-time">
-                            ${format(this.info.date, 'YYYY-MM-DD hh:mm:ss')}
+                            ${moment(this.info.date).format('YYYY-MM-DD hh:mm:ss')}
                         </div>
                         <div class="receipt-random-number">
                             隨機碼 ${this.info.randomNumber}

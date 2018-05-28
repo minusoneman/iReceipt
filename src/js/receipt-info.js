@@ -1,4 +1,5 @@
-import { format } from 'date-fns/esm';
+// import { format } from 'date-fns/esm';
+import moment from 'moment'
 
 class ReceiptInfo {
     constructor(
@@ -25,8 +26,8 @@ class ReceiptInfo {
     toXMLObject() {
         let xmlObject = {
             InvoiceNumber: this.number,
-            InvoiceDate: format(this.date, 'YYYYMMDD'),
-            InvoiceTime: format(this.date, 'hh:mm:ss'),
+            InvoiceDate: moment(this.date).format('YYYYMMDD'),
+            InvoiceTime: moment(this.date).format('hh:mm:ss'),
             Seller: {
                 Identifier: this.seller.id,
                 Name: this.seller.name
